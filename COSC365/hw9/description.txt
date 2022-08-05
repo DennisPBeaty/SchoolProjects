@@ -1,0 +1,55 @@
+Write a Python program, called textAnalysis.py, to do the following.
+
+In the file sitesToScrape.csv  Download sitesToScrape.csvis a list of 25 urls from Project Gutenberg and the title of the corresponding book.  These are comma separated values. Using the Python package BeautifulSoup, parse the contents of each site, remove all of the HTML elements, shift all letters to lowercase, and remove the following characters:
+
+,".&|:@,<>()*$?!\\/;=”“‘[]
+
+0,1,2,3,4,5,6,7,8,9
+
+See Notes below for the detailed instructions for what to do with —, ’ , and -
+
+Once the characters have been removed from the words, the following “words” should be explicitly removed from the list of words for each book (the below line can be copied and pasted into your program to ensure there are no typos):
+
+stopwords = ['ut', '\'re','.', ',', '--', '\'s','cf', '?', ')', '(', ':','\'','\"', '-', '}','â','£', '{', '&', '|', u'\u2014', '', ']' ]
+
+Then, for each book, find the words that belong EXCLUSIVELY to that book and write each of the top 25 most frequent unique words and their respective quantities to a file called “BookName.txt”. For example, if Book A was “I like to go see firetrucks.” and Book B was “Firetrucks go really fast!”, you would expect “Book A.txt” to be:
+
+('i', 1)
+
+('like', 1)
+
+('to', 1)
+
+('see', 1)
+
+and “Book B.txt” to be :
+
+('really', 1)
+
+('fast', 1)
+
+Then choose one of the books (perhaps the one you found most interesting) and, in a single figure, use MatPlotLib to graph the original word frequency and the frequency of the unique words from the book. Your figure should have the following features (though you are welcome to add additional features):
+
+The figure should contain the name of the book as a title
+Both graphs should have DIFFERENT colors
+All axis should be labeled
+You can use HW9Checker.py to ensure that unique words you found for each book match the words and quantities that are expected.  HW9Checker.py will read in the file passed to it and hash the value on each line.  If the hash of the line matches any of the expected results, you will be given that feedback, likewise, you will be informed if a tuple was incorrect. Included is a  test-1.txt  Download test-1.txt file that can be used with the script to see how it works.
+
+UPDATE 4/29/22
+
+There were a few errors with the original gradescript causing some confusion, they have been resolved in HW9CheckerV2.py; additional functionality has been added to it as well to have it be more useful when debugging your program. If the (word, frequency) pair you pass is incorrect, but the word is one of the top 25 most frequent words, you will be told the word is correct, otherwise, you will be told the word is incorrect.
+
+SECOND UPDATE
+
+There were also issues with the version 2 of the gradescript; this is hopefully the final version of it. HW9CheckerFinal-2.py  Download HW9CheckerFinal-2.py 
+
+Your submission should include only your “textAnalysis.py” file which contains your solution to this assignment.
+
+ 
+
+Notes:
+
+The content of the book is bookended between the following lines that are added by Project Gutenberg  “*** START OF THE PROJECT GUTENBERG EBOOK <Book Title> ***” and “ *** END OF THE PROJECT GUTENBERG EBOOK <Book Title> ***”; Your program should only consider the words written between these lines.
+Analysis of word frequency should ALWAYS look at the word as consisting of lowercase characters
+“-” indicates a hyphenated word and should be left alone, but “—” should be replaced with a space and the words that were joined should be considered two separate words.
+Don’t attempt to remove any ’ from the words or to split a contraction into its component words; if you see a ’, leave it alone.
