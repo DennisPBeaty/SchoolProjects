@@ -1,0 +1,214 @@
+<title> CS302 -- Lab Assignment 5</title>
+<style> p.page { page-break-after: always; } </style>
+
+<h1> CS302 -- Lab Assignment 5 (100 pts: Spring 2021)</h1>
+
+<hr>
+<h3>Getting motivated</h3>
+Everybody knows about social networks and how they can suggest
+people for you to connect with. In this lab, you will write
+a simple program for doing that. The point of the exercise
+is for you to learn how to create and manipulate a graph.
+The assignment is simple, but be forewarned that you 
+may run into an obstacle or two. So don't delay, start today.
+<p>
+
+<hr>
+<h3>Lab submission and due date</h3>
+
+Your friendly TAs will tell you how to submit your work to Canvas.
+Do not email your code to the instructor or the TAs as they cannot
+upload the code to Canvas for you.
+<p>
+
+The files Friendnet1.cpp, Friendnet2.cpp, and Friendnet3.cpp
+are due 11:59pm Sunday Mar 14, 2021.
+The submitted code must compile and execute without
+seg faulting to be graded.
+<p>
+
+<hr>
+<h3>Getting started</h3>
+
+Run the script
+/home/cosc302/labs/lab5/copy to obtain
+Hydra executables 
+sfriendnet1, sfriendnet2, and sfriendnet3,
+data file names.txt, skeleton program
+Friendnet1.cpp, and a makefile. 
+Your job is to write the Friendnet programs and make them behave 
+as described next.
+<p>
+
+<UL>
+
+<LI>
+<b>Friendnet1.cpp</b>: This is your basic program.
+Implement the main function to parse the command-line
+arguments and terminate with a usage statement unless
+the program is called as follows:
+<p>
+
+<pre>
+unix> cat datafile.txt | Friendnet1 [-seed N]
+</pre>
+
+where the square brackets mean that the argument
+is optional. If not given, the program should
+use time(NULL) to initialize the random number
+generator. Otherwise, integer argument N should be 
+used.
+<p>
+
+Read an unspecified number of strings from stdin into
+a vector array (name). Think of the position indices as vertex
+identifiers for a graph. The first task is to determine the
+edges that connect these vertices (establish who are friends). 
+The second task is to determine the set of vertices that 
+are two edges away (friends-of-friends aka new friends). 
+Declare a 2D vector based array called friends.
+Declare another 2D vector based array called new_friends.
+Have function set_oldfriends() create friends as a
+dense matrix based adjacency table.
+Have function set_newfriends() populate new_friends
+using this adjacency information.
+Finally,
+have function writetofile() write the friends data to
+a file called doknow1.txt and the new_friends data to
+a file called mightknow1.txt.
+<p>
+
+Function set_oldfriends() initializes the 2D friends table
+to have as many rows as there are entries in the name array.
+Then, random friendships are generated for each name. Each
+name will be associated with a minimum of one friend (M0=1) 
+and a maximum of three friends (M1=3).
+The number of edges that need to be generated is thus
+M = M0 + rand() % M1.
+The friendnet produced is a symmetric graph meaning if there
+is an edge between vertices i and j, then
+there is also an edge between vertices j and i. As a result,
+each vertex may end up being connected to more vertices than
+the few defined above. Hint: Use an std::set to produce the edges as
+it stores unique instances of the keys inserted -- this helps
+prevent multiple identical edges from being produced. Hint: Make
+sure a vertex isn't made adjacent to itself. Hint: Use an iterator
+based loop to add the std::set edges to the friends table.
+<p>
+
+Function set_newfriends() initializes the 2D new_friends table
+to have equally many rows as the friends table. A couple of
+nested for-loops are then used to determine the friends-of-friends
+for each name entry. Hint: Again, make sure a vertex isn't made
+a friend-of-a-friend-of-itself. 
+<p>
+
+Function writetofile() produces
+nicely formatted friends and new_friends output to the above 
+mentioned files depending which table is given to it. Determine
+the length of the longest name. Use that to set the field width
+for each name written. Only write eight names per line. See 
+output examples below. When in doubt, run the solution executable
+and check its output.
+
+<LI> 
+<b>Friendnet2.cpp</b>: Replace the dense 2D-vector-array used
+in Friendnet1.cpp with a sparse 2D-vector-array. Modify all
+functions as necessary. You may for example want to replace 
+many of the index for-loops with iterator loops. Hint: 
+The presence of an (i,j) entry indicates
+that an edge exists between those vertices. Hint: You may 
+need to use the std::sort and std::unique algorithms to 
+ensure order and uniqueness of the edges produced. See 
+the class12_graph1_handout.pdf code.
+The program behavior and output is identical to that of Friendnet1.
+<p>
+
+<LI> 
+<b>Friendnet3.cpp</b>: Replace the sparse 2D-vector-array used
+in Friendnet2.cpp with a binary search tree in the form of
+an std::set. Modify all functions as necessary. 
+Hint: This is mostly a matter of 
+replacing vector with set definitions although a few other
+changes are needed. Hint: The std::set supports finding keys.
+Hint: As mentioned above, the std::set produces a binary 
+search tree holding unique keys -- some of
+the extra work needed for the sparse 2D-vector-array can 
+thus be removed.
+The program
+behavior and output is again identical to that of Friendnet1.
+<p>
+
+<LI>
+To summarize, the three Friendnet programs use
+different implementations for the graph that represents the 
+social network modeled:
+Friendnet1 uses a dense adjacency matrix in the form
+of a vector of vectors
+where all vectors have the same length; 
+Friendnet2 uses a sparse adjacency matrix in the form of
+of a vector of variable vectors (lists);
+and
+Friendnet3 uses a sparse adjacency matrix in the form of
+of a vector of sets.
+They all achieve the same goal but do so differently.
+<p>
+
+</UL>
+<hr>
+
+<!-- <p class="page"></p> -->
+<h3>Example friendnet1 output</h3>
+<pre>
+unix> cat names.txt | ./Friendnet1 -seed 10 
+
+unix> head doknow1.txt
+OLGA       : LEE        JESSIE     BOWMAN     POLLARD   
+ROB        : CLEMENTS   MAYS       LUCAS     
+DORIS      : LITTLE     BRIDGETTE  FREDRIC    WHITE     
+WILLARD    : KATHARINE  HEIDI      ODONNELL  
+COLON      : LETITIA    AVIS       ISRAEL     SHEPARD    CONTRERAS  KIP       
+MAVIS      : CHANG      SONYA     
+LANDON     : HATFIELD   WEBER      ROBERT    
+KATHERINE  : AMELIA     LOWE       HERSCHEL   NORMA      HAWKINS   
+PAGE       : STOUT      PAYNE      BREWER     MARSHALL  
+HOOPER     : KNOWLES    STEVENS    MERCER    
+
+unix> head mightknow1.txt
+OLGA       : WILL       AYERS      AURELIA    GINGER     DAVID      MERCER     WALLER     GALLAGHER 
+OLGA       : ROSALES    DEAN       KRYSTAL   
+ROB        : LESTER     JOHNS      DEWAYNE    POTTS      BUTLER     ZAMORA     WHITFIELD  NIKKI     
+ROB        : DELGADO    ROWE       TONIA     
+DORIS      : MCLEOD     STRICKLAND SARA       THURMAN    JOSEPH     JANINE     AURORA     STEVENS   
+DORIS      : NIEVES     CONSTANCE  HARPER    
+WILLARD    : LILIANA    ERIN       DODSON     BURT       EDMUND     FLOYD      TAYLOR     DYER      
+WILLARD    : WILBUR     LANCASTER  COLLEEN    VEGA       CRAIG      FAULKNER   CAROLINE   JOSE      
+WILLARD    : BRADFORD  
+COLON      : TRENTON    JANELLE    SIMON      REBEKAH    ROBBY      HOLMAN     DEWAYNE    REUBEN    
+
+unix> grep "^LEE" doknow1.txt
+LEE        : OLGA       GINGER     DAVID     
+
+</pre>
+
+So Olga and Lee know each other. Lee also knows Ginger and David who therefore become potential
+new friends for Olga. Same for all the other entries.
+
+The Friendnet2 and Friendnet3 programs produce output identical to the above.
+
+<hr>
+
+<h3>Grading rubric</h3>
+
+<pre>
+10: Friendnet1: Command line arguments, error reporting, input reading
+15: Friendnet1: Set up friends: adjacency based on dense 2D-vector-array
+15: Friendnet1: Set up possible new friends (friends-of-friends)
+10: Friendnet1: Write formatted friends information to file
+15: Friendnet2: Set up friends: adjacency based on sparse 2D-vector-array
+10: Friendnet2: Modify set up new friends and formatting output writing 
+15: Friendnet3: Set up friends: adjacency based on vector-set 
+10: Friendnet3: Modify set up new friends and formatting output writing 
+</pre>
+
+Mon Mar  1 14:01:47 EST 2021

@@ -1,0 +1,300 @@
+<title> CS302 -- Lab Assignment 3</title>
+<style> p.page { page-break-after: always; } </style>
+
+<h1> CS302 -- Lab Assignment 3 (100 pts: Spring 2021)</h1>
+
+<hr>
+<h3>Getting motivated</h3>
+In this lab you will continue sorting the multi-column
+data from Lab 2 which consisted of
+a firstname, a lastname, and a phone number.
+The main difference is that the data will
+now be stored in single linked list.
+In order to allow sorting by means of STL sorting algorithms
+(or any of the ones covered in class),
+you will embed a smart pointer subclass within the single linked 
+list class and write the associated code for setting things up
+and applying the result.
+<p>
+
+<hr>
+<h3>Lab submission and due date</h3>
+Your friendly TAs will tell you how to submit your work to Canvas.
+Do not email your code to the instructor or the TAs as they cannot
+upload the code to Canvas for you.
+<p>
+
+The files Slist.h and Slist.cpp are
+due 11:59pm Thursday Feb 18, 2021.
+The submitted code must compile and execute without
+seg faulting to be graded.
+<p>
+
+<hr>
+
+<h3>Getting started</h3>
+
+Run the script
+/home/cosc302/labs/lab3/copy to obtain 
+a Hydra solution executable called sslist,
+test data files repeat1.txt and repeat2.txt,
+skeleton code Slist.h and Slist.cpp, and
+a makefile for compiling the program
+into a Hydra executable (once properly fleshed out).
+Your job is to write the missing source code which must
+behave as described next.
+<p>
+
+<h3>Assignment details</h3>
+
+<UL>
+
+<LI>
+<b> Slist.h Vers 1 </b>
+Implement the slist::node::constructor that
+takes a data argument; 
+this functionality is needed by slist::push_back() 
+when it creates a new node.
+<p>
+
+<b> Slist.cpp Vers 1 </b>
+Copy and paste the data class definition from the
+Qsort.cpp you wrote for Lab 2
+along with the associated input and
+output operators 
+and the template based printlist function.
+Add needed header files and do whatever else 
+it takes for the code to compile (shouldn't be 
+much and may be as simple as commenting incomplete
+code out), then test and make sure you can 
+read repeat1.txt and print the content back to stdout.
+<p>
+
+<LI>
+<b> Slist.h Vers 2 </b>
+Add an overloaded less-than comparison operator
+to the slist::node subclass.
+Add a private slist::sptr subclass;
+copy the code verbatim from the smart pointer handout,
+then modify it to explicitly work for slist::node data.
+<p>
+
+Update the slist::sort() function to sort the 
+single linked list data using the std::sort() function.
+Determine the number of elements stored in the list.
+Allocate a vector of smart pointers of that size
+called Ap.
+Initialize the individual smart pointers 
+to point to the list nodes. 
+For example, if p = head, then Ap[0] = p-&gt;next, etc.
+Apply std::sort
+and use the sorted Ap vector to relink the list nodes.
+Do not simply repeat the array based
+rearrangement covered in class which used pointers
+to the data itself. Here, the smart pointers point
+to nodes that hold the data.
+Also, keep in mind that operator[] is not available. 
+You will need to use list node pointers.
+When the sorting is done, step through the smart 
+pointer vector while creating the linked list. 
+For example, if p = head, then p-&gt;next = Ap[0], etc.
+Simple as that (once you figure it out). You may
+want to draw a picture of what's going on to
+help visualize the process.
+<p>
+
+<b> Slist.cpp Vers 2 </b>
+Update the main function to call slist::sort
+with an appropriate argument. Compile and
+test the code using the 
+repeat1.txt and repeat2.txt
+files.
+<p>
+
+<LI>
+<b Slist.h Vers 3 </b>
+Add logic to call std::stable_sort if slist::sort is
+called with the string "mergesort" and
+std::sort if the argument is "quicksort".
+<p>
+
+<b> Slist.cpp Vers 3 </b>
+Add command line argument handling. 
+Most of this can be copied from Qsort.cpp.
+When completed, either of the following two ways of 
+executing Slist will be valid:
+<p>
+
+<pre>
+unix> Slist -mergesort repeat.txt
+unix> Slist -quicksort repeat.txt
+</pre>
+
+The program should print usage information if
+given any other options or none. 
+Also,
+update your data reading to be from the specified
+file instead of stdin.
+<p>
+
+Finally, add an integer ID to the private
+member section of the data class.
+Update the input operator to
+set this ID to the reflect the order of appearance
+of a data object in the input stream. Likewise,
+update the output operator to print this ID. 
+Compare performance for mergesort and quicksort.
+For some data, you will see that identical data
+objects appear in the wrong order for quicksort,
+while mergesort always maintains the correct
+order.
+<p>
+
+<LI>
+<b> Slist.h Vers 4 </b>
+CS302 students may do for the following for extra
+credit that CS307 are required to do for full credit:
+add option to use quicksort based on 3-way
+partitioning and a randomly chosen pivot. 
+Update Slist.h to include a copy of your templated
+quicksort implementation from Lab 2. 
+Don't include the single argument function to
+start the recursion. Instead,
+call the recursion directly from slist::sort. 
+Modify the implementation to produce 
+{ &lt; }, { pivot= }, { &gt; } sublists with the
+recursion applied only to the 
+{ &lt; } and { &gt; } sublists. See 
+the notes from Class 5 for an abstract description
+of how to do this.
+<p>
+
+<b> Slist.h Vers 4 </b> Update the main function
+to accept a third variant for the 2nd argument 
+that causes the program to execute your
+new shiny quicksort algorithm. That is,
+
+<pre>
+unix> Slist -qsort_r3 repeat.txt
+</pre>
+
+Compile and test the code using the repeat1.txt 
+and repeat2.txt files.
+
+</UL>
+<hr>
+
+<!-- <p class="page"></p> -->
+<h3>Example runs based on repeat1.txt</h3>
+
+<pre>
+unix> ./Slist -mergesort repeat1.txt 
+
+ ACEVEDO GAVIN           356-488-3678       86
+ ACEVEDO GAVIN           356-488-3678      257
+ ADKINS NOREEN           218-589-7364      266
+ AGUIRRE ROLANDO         232-480-9863       66
+ AGUIRRE ROLANDO         232-480-9863       99
+ AGUIRRE ROLANDO         232-480-9863      310
+ ALLISON CHELSEA         565-133-4367      184
+ ALSTON ELOY             625-705-2549      284
+ ALSTON ELOY             625-705-2549      291
+ ANTHONY EDMOND          498-558-5625      290
+ ASHLEY ROSALIND         381-587-7613      175
+ ASHLEY ROSALIND         381-587-7613      301
+ ATKINSON BETHANY        475-954-1105       92
+ AYALA DAMON             376-528-9382       43
+ AYALA DAMON             376-528-9382       81
+ AYALA DAMON             376-528-9382      117
+ AYALA DAMON             376-528-9382      318
+ BAILEY ROBERTO          846-171-8639      158
+ BAIRD LINWOOD           936-892-1659       27
+ BAIRD LINWOOD           936-892-1659       98
+
+unix> ./Slist -quicksort repeat1.txt | head -20
+
+ ACEVEDO GAVIN           356-488-3678       86
+ ACEVEDO GAVIN           356-488-3678      257
+ ADKINS NOREEN           218-589-7364      266
+ AGUIRRE ROLANDO         232-480-9863      310 **
+ AGUIRRE ROLANDO         232-480-9863       66 **
+ AGUIRRE ROLANDO         232-480-9863       99 **
+ ALLISON CHELSEA         565-133-4367      184
+ ALSTON ELOY             625-705-2549      284
+ ALSTON ELOY             625-705-2549      291
+ ANTHONY EDMOND          498-558-5625      290
+ ASHLEY ROSALIND         381-587-7613      301 **
+ ASHLEY ROSALIND         381-587-7613      175 **
+ ATKINSON BETHANY        475-954-1105       92
+ AYALA DAMON             376-528-9382      318 **
+ AYALA DAMON             376-528-9382       81 **
+ AYALA DAMON             376-528-9382       43 **
+ AYALA DAMON             376-528-9382      117 **
+ BAILEY ROBERTO          846-171-8639      158
+ BAIRD LINWOOD           936-892-1659      190 **
+ BAIRD LINWOOD           936-892-1659       98 **
+
+unix> ./Slist -qsort_r3 repeat1.txt | head -20
+
+ ACEVEDO GAVIN           356-488-3678      257 **
+ ACEVEDO GAVIN           356-488-3678       86 **
+ ADKINS NOREEN           218-589-7364      266
+ AGUIRRE ROLANDO         232-480-9863      310 **
+ AGUIRRE ROLANDO         232-480-9863       99 **
+ AGUIRRE ROLANDO         232-480-9863       66 **
+ ALLISON CHELSEA         565-133-4367      184
+ ALSTON ELOY             625-705-2549      284 
+ ALSTON ELOY             625-705-2549      291
+ ANTHONY EDMOND          498-558-5625      290
+ ASHLEY ROSALIND         381-587-7613      301 **
+ ASHLEY ROSALIND         381-587-7613      175 **
+ ATKINSON BETHANY        475-954-1105       92
+ AYALA DAMON             376-528-9382       81 **
+ AYALA DAMON             376-528-9382       43 **
+ AYALA DAMON             376-528-9382      318 **
+ AYALA DAMON             376-528-9382      117 **
+ BAILEY ROBERTO          846-171-8639      158
+ BAIRD LINWOOD           936-892-1659      321 **
+ BAIRD LINWOOD           936-892-1659       98 **
+
+</pre>
+
+The quicksort and qsort_r3 entries marked with an asterisk are out
+of order.  You will see many more examples, if you look at the full
+output for repeat1.txt and repeat2.txt.
+
+<hr>
+<h3>Grading rubric</h3>
+
+Note1: Output format of your program MUST MATCH 
+that of the solution executable so the diff command can be used to compare
+them.
+<br> 
+Note2: If your program does not compile, 
+it will likely not be graded and instead assigned a default score of 0.
+<br>
+CS302 students can earn extra credit for the qsort_r3 code CS307 students must 
+complete for full credit.
+
+<h4> CS302 Slist (100+30)</h4>
+<pre>
+30: Base code for reading repeat.txt files, storing data in an slist and printing 
+    properly formatted output including line ID handling.
+10: Embedded smart pointer subclass with explicit application to slist::node data. 
+60: Function slist::sort which creates smart pointer array, sorts it using std::sort,
+    and applies results to relink slist nodes in sorted order.
+30: Replace std::sort with 3-way quicksort algorithm: {<},{=},{>}
+</pre>
+
+<h4> CS307 Slist (100)</h4>
+<pre>
+30: Base code for reading repeat.txt files, storing data in an slist and printing 
+    properly formatted output including line ID handling.
+ 5: Embedded smart pointer subclass with explicit application to slist::node data. 
+30: Function slist::sort which creates smart pointer array, sorts it using std::sort,
+    and applies results to relink slist nodes in sorted order.
+30: Replace std::sort with 3-way quicksort algorithm: {<},{=},{>}
+</pre>
+
+<hr>
+Fri Feb  5 13:06:13 EST 2021
