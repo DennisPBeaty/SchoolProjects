@@ -1,0 +1,22 @@
+In this assignment you will utilize a linked list to take in numerical values, positive integers, which may be in any order, store them in your linked list, and then print them out in ascending order by value. 
+
+ 
+
+The simplest way to do this will be to perform an in-order insertion into the list when a new number is read in.  Then traverse the list to print out the values in ascending order.
+
+ 
+
+Your NASM Assembly program should accept the following input:
+
+Values are input as numeric characters.
+Input values may be multiple digits and of any value that can be held in a 32-bit storage space.
+Individual numbers will be separated by one or more whitespace characters (one or more blank, tab, carriage return, or linefeed).
+The number of input items is variable. Input processing should be terminated by entering the character 'X' (capital X, ASCII value 88).
+Input items may occur in any order.
+ 
+
+Your program should produce the following output:
+
+Print the message "The sorted list is the following:"
+Print the list of input values in ascending order, one per line.
+Print a message indicating that the end of the list has been reached.

@@ -1,0 +1,33 @@
+Homework Assignment #1:
+
+Coding in Assembly
+
+ 
+
+You are to write an assembly program that reads in two single digit numbers and performs the following operations:
+
+ 
+
+1. Print the two digits to standard output.
+
+2. Print the sum of the two digits to standard output.
+
+3. Print the difference of the two digits to standard output. Subtract the smaller digit from the larger digit to avoid a negative difference.
+
+4. Print the product of the two digits to standard output.
+
+5. Divide the numbers in order of entry from standard input. Print the quotient and the remainder to standard output.
+
+ 
+
+Make sure your output to the screen identifies what the two separate digits are, what the sum is, what the difference is, what the product is, and for division what the quotient is and the remainder is.
+
+ 
+
+Requirement: At the very top of your assembly code file you turn in, you must include a comment with your name and netID.
+
+Beware: The sum and the product can result in two digit numbers. For example, 9+9 = 18 and 9x9 = 81.
+
+Beware: Division by zero.
+
+Beware: There is a size limit for what can be stored on the Sandbox site. If you cannot save your project in the Sandbox, Coding Ground, just cut and paste to save the program to a file. Then you can cut and paste it back into the Sandbox. Your code will still run. You just will not be able save it as a project in the Sandbox if you have an account.

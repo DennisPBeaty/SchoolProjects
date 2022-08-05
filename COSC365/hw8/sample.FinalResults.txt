@@ -1,0 +1,7 @@
+---------------------------------
+| Contestant  #  | Overall Time |
+| Contestant 002 | 15.05398536  |
+| Contestant 003 | 17.04321098  |
+| Contestant 001 | 18.04347134  |
+---------------------------------
+Overall, the runners spent 50.14066768 seconds running total.

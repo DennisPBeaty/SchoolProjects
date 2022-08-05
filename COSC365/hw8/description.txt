@@ -1,0 +1,35 @@
+Using the threading library, write a Python program that simulates a 999 person four-section foot race. Your program should include two classes that inherit from the Thread class and are described below:
+
+Runner
+Each runner has
+A contestant number
+The section of the race he/she is on
+The time it took for him/her to complete the previous section (initialized at 0)
+While running, for each section, a runner will spend between 10 and 100 seconds completing it
+
+Use the sleep() function from the time library to represent the time spent on each section
+Reporter
+The reporter has
+A list of currently running runners
+A list of runners that have completed the race
+The start time of the race
+While running, the reporter will write the following information every two seconds to a file named "ReporterUpdates.txt"
+The elapsed time of the race
+Additionally, for each active runner, the reporter will report
+The contestant number
+What section of the race the runner is on
+If a runner has finished the race and has not yet been removed from the active runner list, this should say “End”
+How long the runner has been on that section of the race
+What the runner's overall time is for the race
+When a runner finishes the race, he/she is then removed from the list of active runners and added to the list of runners that have finished the race
+Finally, once all runners have completed the race, the reporter will write the results of the race to “FinalResults.txt” with the following information for each runner in order of fastest to slowest:
+The contestant number
+The runner's overall time for the race
+For the last line of the "FinalResults.txt" file, the reporter will write how long the race would have taken if each runner had to run sequentially, rather than at the same time.
+ 
+
+Here is a sample: sample.ReporterUpdates.txt  Download sample.ReporterUpdates.txtand sample.FinalResults.txt  Download sample.FinalResults.txtfor both the “ReporterUpdates.txt” and “FinalResults.txt” generated with 3 runners that complete each section in 1- 10 seconds.  Please format your output files such that they match the formatting of these files (the number of decimal points, spacing, headers, etc).
+
+ 
+
+Your submission should include only a file called “race.py” which contains your solution to this assignment.
